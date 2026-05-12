@@ -1,0 +1,646 @@
+﻿<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iLector</title>
+  <link rel="stylesheet" href="./css/style.css?v=20260421-018" />
+</head>
+<body>
+  <section class="public-test-shell hidden" id="publicTestView">
+    <div class="public-test-box">
+      <div class="public-test-head">
+        <div class="public-test-copy">
+          <p class="public-test-eyebrow" id="publicTestCourse">Тест</p>
+          <h1 id="publicTestTitle">Тест</h1>
+          <p class="public-test-meta" id="publicTestMeta"></p>
+        </div>
+        <div class="public-test-timer" id="publicTestTimer">--:--</div>
+      </div>
+
+      <div class="public-test-alert" id="publicTestStatus"></div>
+
+      <div class="public-test-start-card" id="publicTestStartCard">
+        <label class="public-test-field" for="publicTestStudentNameInput">
+          <span id="publicTestNameLabel">Аты-жөніңіз</span>
+          <input id="publicTestStudentNameInput" type="text" placeholder="Аты-жөніңізді енгізіңіз" />
+        </label>
+
+        <button class="action-btn primary" id="publicTestStartBtn" type="button">Тестті бастау</button>
+      </div>
+
+      <div class="public-test-questions hidden" id="publicTestQuestionsWrap">
+        <div class="public-test-question-list" id="publicTestQuestionList"></div>
+
+        <div class="public-test-actions">
+          <button class="action-btn primary" id="publicTestSubmitBtn" type="button">Тапсыру</button>
+        </div>
+      </div>
+
+      <div class="public-test-result hidden" id="publicTestResultCard"></div>
+    </div>
+  </section>
+
+  <div class="app" id="teacherApp">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <button class="brand-logo-btn" id="homeLogoBtn" type="button" aria-label="Негізгі бетке өту">
+            <div class="brand-logo">
+              <img src="./assets/images/Satabayev_University_logo.png?v=20260408-01" alt="Satbayev University logo" />
+            </div>
+          </button>
+
+          <div class="brand-text">
+            <button class="role-title-btn" id="roleTitleBtn" type="button">
+              <span id="brandRoleTitle">Оқытушы</span>
+              <span class="role-title-arrow">▾</span>
+            </button>
+
+            <div class="role-menu hidden" id="roleMenu">
+              <button class="role-menu-item active" data-role-value="kaz" type="button">Оқытушы</button>
+              <button class="role-menu-item" data-role-value="rus" type="button">Лектор</button>
+              <button class="role-menu-item" data-role-value="eng" type="button">Lector</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="auth-actions" id="authActions">
+            <button class="auth-login-btn" id="authOpenBtn" type="button">Кіру</button>
+          </div>
+
+          <div class="profile-shell hidden" id="profileShell">
+            <button class="profile-avatar-btn" id="profileBtn" type="button" aria-label="profile">
+              <div class="avatar" id="topAvatar"></div>
+            </button>
+
+            <div class="profile-dropdown" id="profileDropdown">
+              <div class="profile-card-top">
+                <div class="avatar" id="dropdownAvatar" style="width:52px;height:52px;font-size:16px;"></div>
+                <div class="profile-main">
+                  <strong id="dropdownName"></strong>
+                  <span id="dropdownRole"></span>
+                  <span id="dropdownEmail"></span>
+                </div>
+              </div>
+
+              <div class="profile-actions">
+                <button id="editProfileBtn" type="button">Профильді өңдеу</button>
+                <button id="logoutBtn" type="button">Шығу</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <section id="homeView">
+        <div class="home-stage" id="courseStage">
+          <div class="section-title-wrap"></div>
+          <section class="course-grid" id="courseGrid"></section>
+        </div>
+
+        <div class="home-stage hidden" id="disciplineStage">
+          <div class="section-head-inline discipline-stage-head">
+            <button class="back-chip-btn" id="courseBackBtn" type="button">Артқа</button>
+            <button class="add-discipline-btn" id="addDisciplineBtn" type="button">
+              <span class="add-discipline-btn-plus">+</span>
+              <span id="addDisciplineBtnText">Пән қосу</span>
+            </button>
+          </div>
+
+          <section class="cards-grid" id="cardsGrid"></section>
+        </div>
+      </section>
+
+      <section id="subjectView" class="hidden">
+        <section class="subject-shell">
+
+          <!-- ЖОҒАРЫҒА КӨТЕРІЛГЕН SUBJECT HEADER -->
+          <div class="subject-cover-top" id="subjectCoverTop">
+            <div class="subject-cover-head">
+              <div class="subject-cover-left">
+                <button class="cover-back-btn" id="backBtn" type="button">Артқа</button>
+                <div class="subject-course-banner-badge" id="subjectCourseBannerBadge">3 курс</div>
+              </div>
+
+              <button class="subject-manage-toggle" id="toggleMaterialManagerBtn" type="button">Материал жүктеу</button>
+            </div>
+
+            <div class="subject-cover-main">
+            <div class="subject-course-card" aria-hidden="true">
+              <div class="course-card-cover subject-course-card-cover" id="subjectCourseCardCover">
+                <div class="course-card-illustration subject-course-illustration" id="subjectCourseIllustration"></div>
+              </div>
+            </div>
+            <div class="subject-cover-copy">
+              <h2 id="subjectTitle">Желілік қауіпсіздік</h2>
+              <input class="subject-title-input hidden" id="subjectTitleInput" type="text" maxlength="255" />
+                <p id="subjectCourse">3 курс</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ЖАҢА БАСҚАРУ ПАНЕЛІ -->
+          <div class="subject-control-panel" id="subjectControlPanel">
+            <div class="material-manager-panel" id="materialManagerPanel">
+              <div class="material-manager-actions" id="materialManagerActions">
+                <button class="small-btn" id="addInlineDisciplineBtn" type="button">Пән қосу</button>
+                <div class="upload-menu-wrap" id="uploadMenuWrap">
+                  <button class="small-btn primary" id="uploadMaterialBtn" type="button">Жүктеу</button>
+                  <div class="upload-menu" id="uploadModeMenu" aria-hidden="true">
+                    <button class="upload-menu-item" id="uploadSingleMaterialBtn" type="button">Файл</button>
+                    <button class="upload-menu-item" id="uploadFolderMaterialBtn" type="button">Папка жүктеу</button>
+                  </div>
+                </div>
+                <button class="small-btn danger" id="deleteMaterialBtn" type="button">Материалды жою</button>
+                <button class="small-btn danger subtle" id="deleteDisciplineBtn" type="button">Пәнді жою</button>
+              </div>
+            </div>
+
+            <div class="material-control-family" id="materialControlFamily">
+              <div class="control-select-card subject-select-card">
+                <label for="subjectSelect" id="subjectSelectLabel">Пән</label>
+                <select id="subjectSelect">
+                  <option value="">Пәнді таңдаңыз</option>
+                </select>
+              </div>
+
+              <div class="control-select-card material-type-select-card">
+                <label for="materialTypeSelect">Материал түрі</label>
+                <select id="materialTypeSelect">
+                  <option value="lecture">Дәріс</option>
+                  <option value="lab">Зертхана</option>
+                  <option value="practice">Практика</option>
+                </select>
+              </div>
+
+              <div class="control-select-card topic-select-card">
+                <label for="topicSelect">Тақырып</label>
+                <select id="topicSelect">
+                  <option value="">Тақырыпты таңдаңыз</option>
+                </select>
+              </div>
+
+              <div class="control-action-group material-action-group">
+                <button class="action-btn subject-nav-btn is-active" id="openMaterialBtn" type="button">
+                  <span class="action-btn-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M7 3.5h7l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V5A1.5 1.5 0 0 1 7.5 3.5Z"></path>
+                      <path d="M14 3.5V8h4"></path>
+                      <path d="M8.5 12.5h7"></path>
+                      <path d="M8.5 16h5"></path>
+                    </svg>
+                  </span>
+                  <span class="action-btn-label">Материал</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="control-actions-row" id="controlActionsRow">
+              <div class="control-action-group presentation-action-group">
+                <div class="control-action-group-title" id="presentationGroupTitle">Презентация</div>
+                <button class="action-btn subject-nav-btn" id="openSlidesBtn" type="button" disabled>
+                  <span class="action-btn-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="4" y="5" width="16" height="12" rx="2"></rect>
+                      <path d="M9 19h6"></path>
+                      <path d="M12 17v2"></path>
+                      <path d="M8 9.5h8"></path>
+                      <path d="M8 12.5h5"></path>
+                    </svg>
+                  </span>
+                  <span class="action-btn-label">Слайд</span>
+                </button>
+              </div>
+
+              <div class="control-action-group test-action-group">
+                <div class="control-action-group-title" id="testGroupTitle">Тест</div>
+                <button class="action-btn subject-nav-btn" id="generateTestBtn" type="button" disabled>
+                  <span class="action-btn-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M7 3.5h7l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V5A1.5 1.5 0 0 1 7.5 3.5Z"></path>
+                      <path d="M14 3.5V8h4"></path>
+                      <path d="M9 13.5h5"></path>
+                      <path d="M9 16.5h3"></path>
+                      <path d="m8.5 10.5 1 1 2-2"></path>
+                    </svg>
+                  </span>
+                  <span class="action-btn-label">Жасау</span>
+                </button>
+                <button class="action-btn subject-nav-btn" id="openQrBtn" type="button" disabled>
+                  <span class="action-btn-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 4h5v5H4z"></path>
+                      <path d="M15 4h5v5h-5z"></path>
+                      <path d="M4 15h5v5H4z"></path>
+                      <path d="M16 16h1"></path>
+                      <path d="M15 12h2v2h-2z"></path>
+                      <path d="M19 12v3"></path>
+                      <path d="M12 15h3"></path>
+                      <path d="M18 18v2"></path>
+                      <path d="M15 19h2"></path>
+                    </svg>
+                  </span>
+                  <span class="action-btn-label">Жариялау (QR)</span>
+                </button>
+                <button class="action-btn subject-nav-btn" id="openResultsBtn" type="button" disabled>
+                  <span class="action-btn-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 19.5h14"></path>
+                      <path d="M8 17V10"></path>
+                      <path d="M12 17V6.5"></path>
+                      <path d="M16 17v-4.5"></path>
+                    </svg>
+                  </span>
+                  <span class="action-btn-label">Нәтижелер</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- БІР ПАРАҚТЫҢ ІШІНДЕГІ НЕГІЗГІ КОНТЕНТ АЙМАҒЫ -->
+          <div class="subject-content-board">
+
+              <!-- MATERIAL VIEW -->
+              <div class="content-view active" id="materialsPane">
+                <div class="material-preview-wrap">
+                  <div class="material-preview" id="materialPreview"></div>
+                </div>
+
+                <div class="content-footer-bar">
+                  <div class="content-footer-type" id="materialFooterType"></div>
+                  <div class="content-footer-title" id="materialFooterTitle"></div>
+                  <div class="content-view-actions">
+                    <button class="small-btn" id="openMaterialFullscreenBtn" type="button">Толық экран</button>
+                  </div>
+                </div>
+
+                <input class="hidden-file" id="singleMaterialUploadInput" type="file" />
+                <input class="hidden-file" id="folderMaterialUploadInput" type="file" webkitdirectory directory multiple />
+              </div>
+
+              <div class="content-view hidden" id="slidesPane">
+                <div class="slides-preview-wrap" id="slidesPreview"></div>
+
+                <div class="content-footer-bar">
+                  <div class="content-footer-type" id="slidesFooterType"></div>
+                  <div class="content-footer-title" id="slidesFooterTitle"></div>
+                  <div class="content-view-actions">
+                    <button class="small-btn" id="openSlidesFullscreenBtn" type="button">Толық экран</button>
+                    <button class="small-btn primary" id="downloadSlidesBtn" type="button">Жүктеп алу</button>
+                    <button class="small-btn hidden" id="regenerateSlidesBtn" type="button">Қайта жасау</button>
+                  </div>
+                </div>
+
+                <p class="slides-view-status" id="slidesStatusText"></p>
+              </div>
+
+              <!-- TEST VIEW -->
+              <div class="content-view hidden" id="testPane">
+                <div class="test-qr-board">
+                  <div class="test-qr-card">
+                    <div class="test-info-row">
+                      <div class="test-loading-card hidden" id="testLoadingCard">
+                        <div class="test-loading-copy">
+                          <div class="slides-loader test-loader" aria-hidden="true"></div>
+                          <div class="test-loading-text">
+                            <h3 id="testLoadingTitle">ИИ тест жасау басталды</h3>
+                            <p id="testLoadingText">Параметрлер бойынша сұрақтар дайындалып жатыр</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="test-ready-inline hidden" id="testInfoCard">
+                        <div class="test-ready-copy">
+                          <div class="test-ready-topline">
+                            <span class="test-ready-state hidden" id="testInfoState"></span>
+                            <span class="test-ready-timer hidden" id="testInfoTimer"></span>
+                          </div>
+                          <p class="test-ready-meta" id="testInfoText"></p>
+                          <p class="test-ready-hint hidden" id="testInfoHint"></p>
+                        </div>
+
+                        <div class="test-ready-actions">
+                          <button class="small-btn hidden" id="previewTestBtn" type="button">Тестті қарау</button>
+                          <button class="small-btn primary hidden" id="launchTestBtn" type="button">Тестті бастау</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="test-settings-panel" id="testSettingsPanel">
+                      <div class="test-settings-shell">
+                        <div class="test-settings-head">
+                          <span class="test-settings-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M7 3.5h7l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V5a1.5 1.5 0 0 1 1-1.5Z"></path>
+                              <path d="M14 3.5V8h4"></path>
+                              <path d="M9 13.5h5"></path>
+                              <path d="M9 16.5h3"></path>
+                              <path d="m8.5 10.5 1 1 2-2"></path>
+                            </svg>
+                          </span>
+
+                          <div class="test-settings-copy">
+                            <p class="test-settings-title" id="testSettingsTitle">Тест параметрлері</p>
+                            <p class="test-settings-hint hidden" id="testSettingsHint"></p>
+                          </div>
+                        </div>
+
+                        <div class="test-settings-body">
+                          <div class="test-settings-grid">
+                            <label class="test-settings-field" for="testQuestionCountInput">
+                              <span class="test-settings-field-label" id="testQuestionCountLabel">Сұрақ саны</span>
+                              <span class="test-settings-field-note" id="testQuestionCountHint">Неше сұрақ жасалады</span>
+                              <div class="test-settings-input-shell">
+                                <input id="testQuestionCountInput" type="number" min="3" max="25" step="1" inputmode="numeric" autocomplete="off" value="5" />
+                                <span class="test-settings-unit" id="testQuestionCountUnit">сұрақ</span>
+                              </div>
+                            </label>
+
+                            <label class="test-settings-field" for="testDurationInput">
+                              <span class="test-settings-field-label" id="testDurationLabel">Жауап қабылдау уақыты</span>
+                              <span class="test-settings-field-note" id="testDurationHint">Уақыт біткенде тест жабылады</span>
+                              <div class="test-settings-input-shell">
+                                <input id="testDurationInput" type="number" min="5" max="180" step="1" inputmode="numeric" autocomplete="off" value="20" />
+                                <span class="test-settings-unit" id="testDurationUnit">мин</span>
+                              </div>
+                            </label>
+
+                            <div class="test-settings-cta">
+                              <button class="small-btn primary" id="buildTestBtn" type="button">Тестті дайындау</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="test-qr-stack">
+                      <img
+                        id="qrImageInline"
+                        alt="QR code"
+                        style="display:none;width:240px;height:240px;border-radius:20px;background:#fff;padding:12px;"
+                      />
+
+                      <div class="test-qr-caption hidden" id="testQrCaption">
+                        <div class="test-qr-caption-title" id="testQrCaptionTitle">QR кодты студенттерге көрсетіңіз</div>
+                        <div class="test-qr-caption-timer hidden" id="testQrCaptionTimer"></div>
+                        <p class="test-qr-caption-text" id="testQrCaptionText">Студенттер телефонмен сканерлеп, Google Form-ға өтеді.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RESULTS VIEW -->
+              <div class="content-view hidden" id="resultsPane">
+                <p class="results-view-status hidden" id="resultsInfoText"></p>
+
+                <div class="results-sheet-wrap">
+                  <iframe
+                    id="resultsSheetFrame"
+                    title="Test results sheet"
+                    src=""
+                    style="width:100%;min-height:720px;border:0;border-radius:10px;background:#fff;"
+                  ></iframe>
+                </div>
+
+                <div class="content-footer-bar">
+                  <div class="content-footer-type" id="resultsFooterType">Нәтижелер</div>
+                  <div class="content-footer-title" id="resultsFooterTitle"></div>
+                  <div class="content-view-actions">
+                    <button class="small-btn" id="openResultsSheetBtn" type="button">Google Sheets-та ашу</button>
+                    <button class="small-btn primary" id="downloadResultsBtn" type="button">Жүктеп алу</button>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div class="voice-assistant">
+      <div class="voice-windows">
+        <div class="voice-panel" id="voicePanel">
+          <div class="voice-top">
+            <button class="voice-close" id="closeVoiceBtn" type="button">×</button>
+          </div>
+
+          <div class="voice-core-wrap">
+            <div class="voice-rings">
+              <div class="ring r1"></div>
+              <div class="ring r2"></div>
+              <div class="ring r3"></div>
+              <div class="voice-core" id="voiceCore" title="Түртіп тыңдауды бастау"></div>
+            </div>
+
+            <div class="voice-bars">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+            <div class="voice-status" id="voiceStatus">Дайын</div>
+          </div>
+
+          <div class="voice-input-block">
+            <div class="voice-input-shell">
+              <textarea
+                class="voice-input"
+                id="voiceInput"
+                rows="2"
+                enterkeyhint="send"
+              ></textarea>
+
+              <button class="voice-send-btn" id="voiceSendBtn" type="button" aria-label="Жіберу">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h12"></path>
+                  <path d="M13 6l6 6-6 6"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="voice-help-panel" id="voiceHelpPanel">
+          <div class="voice-help-top">
+            <button class="voice-help-close" id="closeVoiceHelpBtn" type="button">×</button>
+          </div>
+
+          <h3 class="voice-help-title" id="voiceHelpTitle">Дауыстық көмекші</h3>
+          <p class="voice-help-text" id="voiceHelpIntro"></p>
+
+          <div class="voice-help-list" id="voiceHelpList"></div>
+        </div>
+      </div>
+
+      <div class="voice-toolbar">
+        <button class="voice-dock" id="openVoiceBtn" type="button" aria-label="AI assistant">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 14V10"></path>
+            <path d="M9 18V6"></path>
+            <path d="M13 20V4"></path>
+            <path d="M17 17V7"></path>
+            <path d="M21 13V11"></path>
+          </svg>
+        </button>
+
+        <button class="voice-help-btn" id="openVoiceHelpBtn" type="button" aria-label="Көмек көрсету">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 4h9l3 3v13H6z"></path>
+            <path d="M15 4v4h4"></path>
+            <path d="M9 11h6"></path>
+            <path d="M9 15h6"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="authModal">
+      <div class="auth-modal-box">
+        <button class="auth-modal-close" data-close-modal="authModal" type="button" aria-label="Жабу">×</button>
+
+        <div class="auth-modal-copy">
+          <div class="auth-modal-head">
+            <div class="auth-modal-brand">
+              <img class="auth-modal-logo" src="./assets/images/Satabayev_University_logo.png?v=20260408-01" alt="Satbayev University logo" />
+              <strong>iLector</strong>
+            </div>
+            <select class="auth-language-switch" id="authLanguageSwitch" aria-label="Тіл таңдау"></select>
+          </div>
+          <h2 id="authModalTitle"></h2>
+          <div class="auth-modal-text" id="authModalText">
+            <p class="auth-modal-line is-lead">Құрметті ОҚЫТУШЫ сізді “iLector” веб-қосымшасын таңдағаныңыз үшін алғыс білдіреміз !</p>
+            <p class="auth-modal-line"><strong>Кіру:</strong> Қосымшаға кіру үшін тек Google аккаунттың болуы, егер болмаса тіркелу автоматты түрде Google талаптары бойынша жүреді.</p>
+            <p class="auth-modal-line"><strong>Мүмкіншілігі:</strong> қосымшаға дайын дәріс материалын жүктеу арқылы, сіз автоматты түрде «дауыстық көмекші», «презентация», «тест», «тест нәтижесі» сияқты ыңғайлы әдістерге қол жеткізесіз.</p>
+            <p class="auth-modal-line"><strong>Артықшылығы:</strong> Тест сұрақтарын жариялау QR арқылы. Қолайлы интерфейс. Киберқауіпсіз орта. Ақпараттарыңыз өз Google Drive-та сақталады.</p>
+          </div>
+        </div>
+
+        <button class="auth-provider-btn" id="authGoogleBtn" type="button">
+          <span class="auth-provider-icon auth-provider-icon-google" aria-hidden="true">G</span>
+          <span id="authGoogleBtnText">Google арқылы жалғастыру</span>
+        </button>
+
+        <p class="auth-modal-note" id="authModalNote"><a href="https://sso.satbayev.university" target="_blank" rel="noopener noreferrer">sso.satbayev.university</a><br />Copyright © 2026 <a href="https://official.satbayev.university/kk/information-telecommunication-technologies/kafedra-informatsionnykh-sistem" target="_blank" rel="noopener noreferrer">"Ақпараттық жүйелер" кафедрасы</a></p>
+        <div class="auth-voice-slot" id="authVoiceSlot"></div>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="profileModal">
+      <div class="profile-modal-box">
+        <div class="profile-modal-top">
+          <h3>Профильді өңдеу</h3>
+          <button class="profile-modal-close" data-close-modal="profileModal" type="button">×</button>
+        </div>
+
+        <div class="profile-modal-head">
+          <div class="avatar-edit" id="avatarEditPreview"></div>
+
+          <div class="profile-head-copy">
+            <h4 id="profileModalNameText"></h4>
+            <p id="profileModalRoleText"></p>
+          </div>
+        </div>
+
+        <input class="hidden-file" id="avatarFileInput" type="file" accept="image/*" />
+
+        <div class="edit-grid">
+          <div class="edit-field">
+            <label for="profileUsernameInput">Username</label>
+            <input id="profileUsernameInput" type="text" value="" />
+          </div>
+
+          <div class="edit-field">
+            <label for="profileEmailInput">Email</label>
+            <input id="profileEmailInput" type="text" readonly />
+          </div>
+
+          <div class="edit-field">
+            <label for="profileBioInput">Био</label>
+            <textarea id="profileBioInput"></textarea>
+          </div>
+        </div>
+
+        <div class="profile-modal-actions">
+          <button class="save-btn" id="saveProfileBtn" type="button">Сақтау</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="disciplineModal">
+      <div class="modal-box discipline-modal-box">
+        <div class="modal-top">
+          <h3 id="disciplineModalTitle">Жаңа пән</h3>
+          <button class="modal-close" data-close-modal="disciplineModal" type="button">×</button>
+        </div>
+
+        <div class="discipline-modal-grid">
+          <div class="discipline-preview-wrap">
+            <p class="discipline-preview-label" id="disciplinePreviewLabel">Карточка үлгісі</p>
+            <div class="discipline-preview-card" id="disciplinePreviewCard"></div>
+          </div>
+
+          <div class="discipline-form-wrap">
+            <div class="edit-field">
+              <label for="disciplineTitleInput">Пән атауы</label>
+              <input id="disciplineTitleInput" type="text" maxlength="255" placeholder="Мысалы, Желілік қауіпсіздік" />
+            </div>
+            <p class="discipline-form-error" id="disciplineFormError"></p>
+          </div>
+        </div>
+
+        <div class="profile-modal-actions">
+          <button class="save-btn" id="saveDisciplineBtn" type="button">Қосу</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="testModal">
+      <div class="modal-box large">
+        <div class="modal-top">
+          <h3 id="testModalTitle">Тест</h3>
+          <button class="modal-close" data-close-modal="testModal" type="button">×</button>
+        </div>
+
+        <div class="test-bottom-actions" style="margin-bottom:16px;">
+          <button class="small-btn" id="editTestBtn" type="button">Өңдеу</button>
+          <button class="small-btn primary hidden" id="saveTestBtn" type="button">Сақтау</button>
+        </div>
+
+        <div class="test-modal-summary" id="testModalSummary"></div>
+        <div class="question-edit-list" id="testQuestionsContainer"></div>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="qrModal">
+      <div class="modal-box" style="max-width:420px;">
+        <div class="modal-top">
+          <h3>QR арқылы қосылу</h3>
+          <button class="modal-close" data-close-modal="qrModal" type="button">×</button>
+        </div>
+
+        <div style="display:grid;justify-items:center;gap:14px;">
+          <img id="qrImage" alt="QR code" style="display:none;width:240px;height:240px;border-radius:20px;background:#fff;padding:12px;"/>
+          <div class="pill open" id="qrCodeLabel">Тестке қосылу</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="playerDetailModal">
+      <div class="modal-box large">
+        <div class="modal-top">
+          <h3 id="playerDetailTitle">Қатысушы</h3>
+          <button class="modal-close" data-close-modal="playerDetailModal" type="button">×</button>
+        </div>
+
+        <div class="player-detail-meta" id="playerDetailMeta"></div>
+        <div class="player-answer-list" id="playerAnswerList"></div>
+      </div>
+    </div>
+  </div>
+
+    <script src="./js/app.js?v=20260421-011"></script>
+</body>
+</html>

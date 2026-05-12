@@ -1,0 +1,26 @@
+from django.urls import path
+from .views import (
+    assistant_command,
+    delete_material,
+    generate_material_slides,
+    generate_material_test,
+    material_list,
+    preview_material,
+    reset_material_slides,
+    speak_assistant_reply,
+    transcribe_voice,
+    upload_material,
+)
+
+urlpatterns = [
+    path("materials/", material_list, name="material-list"),
+    path("materials/upload/", upload_material, name="material-upload"),
+    path("materials/<int:material_id>/preview/", preview_material, name="material-preview"),
+    path("materials/<int:material_id>/", delete_material, name="material-delete"),
+    path("materials/<int:material_id>/generate-slides/", generate_material_slides, name="generate-material-slides"),
+    path("materials/<int:material_id>/reset-slides/", reset_material_slides, name="reset-material-slides"),
+    path("materials/<int:material_id>/generate-test/", generate_material_test, name="generate-material-test"),
+    path("assistant/command/", assistant_command, name="assistant-command"),
+    path("assistant/speak/", speak_assistant_reply, name="assistant-speak"),
+    path("assistant/transcribe/", transcribe_voice, name="assistant-transcribe"),
+]
