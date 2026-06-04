@@ -11,7 +11,7 @@ from .models import Course
 class CourseListAuthTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.course = Course.objects.create(number=1)
+        self.course, _ = Course.objects.get_or_create(number=1)
 
     def test_course_list_requires_google_session(self):
         response = self.client.get(reverse("course-list"))
@@ -32,4 +32,5 @@ class CourseListAuthTests(TestCase):
         response = self.client.get(reverse("course-list"))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json(), [{"id": self.course.id, "number": 1}])
+        expected_courses = list(Course.objects.order_by("number").values("id", "number"))
+        self.assertEqual(response.json(), expected_courses)
