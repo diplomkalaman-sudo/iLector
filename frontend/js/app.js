@@ -25,7 +25,7 @@ const AUTH_LANGUAGE_LABELS = Object.freeze({
   rus: "Русский",
   eng: "English",
 });
-const PORTAL_URL = "https://sso.satbayev.university";
+# const PORTAL_URL = "https://sso.satbayev.university";
 const DEPARTMENT_URLS = Object.freeze({
   kaz: "http://shopgroup.kz/",
   rus: "http://shopgroup.kz/",
