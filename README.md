@@ -27,7 +27,7 @@
 
 ```powershell
 git clone <repository-url>
-cd lektor-project
+cd lector-project
 ```
 
 ### 2. Backend үшін `.env` файлын жасау
