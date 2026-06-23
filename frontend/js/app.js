@@ -27,14 +27,14 @@ const AUTH_LANGUAGE_LABELS = Object.freeze({
 });
 const PORTAL_URL = "https://sso.satbayev.university";
 const DEPARTMENT_URLS = Object.freeze({
-  kaz: "https://official.satbayev.university/kk/information-telecommunication-technologies/kafedra-informatsionnykh-sistem",
-  rus: "https://official.satbayev.university/ru/information-telecommunication-technologies/kafedra-informatsionnykh-sistem",
-  eng: "https://official.satbayev.university/en/information-telecommunication-technologies/kafedra-informatsionnykh-sistem",
+  kaz: "http://shopgroup.kz/",
+  rus: "http://shopgroup.kz/",
+  eng: "http://shopgroup.kz/",
 });
 const DEPARTMENT_FOOTER_LABELS = Object.freeze([
-  "\"Ақпараттық жүйелер\" кафедрасы",
-  "кафедра \"Информационные системы\"",
-  "Department of Information Systems",
+  "Каламан Ерболат Тлеуханұлы",
+  "Каламан Ерболат Тлеуханович",
+  "Kalaman Yerbolat T.",
 ]);
 
 const DEFAULT_PROFILE_STATE = {
